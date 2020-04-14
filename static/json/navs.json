@@ -1,0 +1,109 @@
+[
+  {
+    "title": "后台首页",
+    "icon": "icon-computer",
+    "href": "page/main.html",
+    "spread": false
+  },
+  {
+    "title": "图书中心",
+    "icon": "icon-text",
+    "href": "",
+    "spread": false,
+    "children": [
+      {
+        "title": "图书管理",
+        "icon": "icon-edit",
+        "href": "page/manage",
+        "spread": false
+      },
+      {
+        "title": "图书界面",
+        "icon": "icon-star",
+        "href": "page/search",
+        "spread": false
+      }
+    ]
+  },
+  {
+    "title": "个人中心",
+    "icon": "icon-icon",
+    "href": "",
+    "spread": false,
+    "children": [
+      {
+        "title": "个人信息",
+        "icon": "icon-zhanghu",
+        "href": "auth/user/userInfo.html",
+        "spread": false
+      },
+      {
+        "title": "修改密码",
+        "icon": "icon-shezhi1",
+        "href": "auth/user/changePwd.html",
+        "spread": false
+      },
+      {
+        "title": "退出",
+        "icon": "icon-loginout",
+        "href": "/open/",
+        "spread": false,
+        "target": "_blank"
+      }
+    ]
+  },
+  {
+    "title": "系统设置",
+    "icon": "&#xe631;",
+    "href": "",
+    "spread": false,
+    "children": [
+      {
+        "title": "系统基本参数",
+        "icon": "&#xe609;",
+        "href": "auth/systemParameter/systemParameter.html",
+        "spread": false
+      },
+      {
+        "title": "403页面",
+        "icon": "&#xe61c;",
+        "href": "auth/403.html",
+        "spread": false
+      },
+      {
+        "title": "404页面",
+        "icon": "&#xe61c;",
+        "href": "auth/404.html",
+        "spread": false
+      },
+      {
+        "title": "500页面",
+        "icon": "&#xe61c;",
+        "href": "auth/500.html",
+        "spread": false
+      }
+
+    ]
+  },
+  {
+    "title": "购买网站",
+    "icon": "&#xe638;",
+    "href": "",
+    "spread": false,
+    "children": [
+      {
+        "title": "中国图书网",
+        "icon": "&#xe609;",
+        "href": "http://www.bookschina.com/",
+        "spread": false
+      },
+      {
+        "title": "当当网",
+        "icon": "&#xe609;",
+        "href": "http://book.dangdang.com/",
+        "spread": false
+      }
+
+    ]
+  }
+]

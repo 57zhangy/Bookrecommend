@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DjangoCURD</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="icon" type="image/x-icon" href="/static/images/head.ico"/>
+    <link rel="stylesheet" href="/static/css/user.css" media="all"/>
+    <style>
+        form input.layui-input[disabled] {
+            background: #f2f2f2;
+            color: #595963 !important;
+        }
+
+        body {
+
+            font-weight: bolder;
+        }
+
+        .layui-input {
+            width: 300px;
+        }
+
+        .layui-form-item {
+            margin-left: 100px;
+        }
+
+        img {
+            margin-left: 150px;
+        }
+
+        .file {
+            position: relative;
+            display: inline-block;
+            background: #D0EEFF;
+            border: 1px solid #99D3F5;
+            border-radius: 4px;
+            padding: 4px 12px;
+            overflow: hidden;
+            color: #1E88C7;
+            text-decoration: none;
+            text-indent: 0;
+            line-height: 20px;
+        }
+
+        .file input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .file:hover {
+            background: #AADFFD;
+            border-color: #78C3F3;
+            color: #004974;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+<body>
+<div class="layui-container">
+    <blockquote class="layui-elem-quote">
+        <h1 style="font-size: 17px">编辑图书数据</h1>
+    </blockquote>
+
+    <div class="layui-row">
+        <div class="layui-col-md5">
+            <form action="{% url 'updatelist' %}" method="post" enctype="multipart/form-data"/>
+            <div class="user_left">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">id:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="id" id="id" value="{{ book1.id }}" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图书id:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="no" disabled class="layui-input layui-disabled" id="no"
+                               value="{{ book1.no }}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">书名:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" id="name" value="{{ book1.name }}" disabled
+                               class="layui-input layui-disabled">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">出版社:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="publish" id="publish" value="{{ book1.publish }}" disabled
+                               class="layui-input layui-disabled"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图书价格:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="price" id="price" value="{{ book1.price }}" class=" layui-input"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">豆瓣评分:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="rating" id="rating" value="{{ book1.rating }}" class=" layui-input"/>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图书网址:</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="url" id="url" value="{{ book1.url }}" disabled
+                               class="layui-input layui-disabled"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="padding-left: 40px">
+                        <input type="submit" value="修改" class="layui-btn"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="user_right ">
+                <img src="/media/{{ book1.cover }}" style="width: 200px;height: 280px">
+                <div class="layui-form-item" style="margin-left: 200px;margin-top: 20px">
+                <a href="javascript:;" class="file">
+                    <input type="file" name="cover" id="cover"/>点击这里修改封面
+                </a>
+                    </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>

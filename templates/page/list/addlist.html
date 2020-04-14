@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>增加书籍</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-weight: bolder;
+        }
+
+        .layui-input {
+            width: 400px;
+        }
+        .layui-form-item{
+            margin-left: 200px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="layui-container">
+    <blockquote class="layui-elem-quote">
+        <h1 style="font-size: 17px">添加书籍</h1>
+    </blockquote>
+
+    <div class="layui-row" >
+        <div class="layui-col-md5">
+            <form action="{% url 'addlist' %}" method="post" enctype="multipart/form-data"/>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">图书id:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="no" id="no" placeholder="请输入图书id" class="layui-input"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">书名:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" id="name" placeholder="请输入书名" class="layui-input"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">出版社:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="publish" id="publish" placeholder="请输入出版社" class="layui-input"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">图书价格:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="price" id="price" placeholder="请输入图书价格" class="layui-input"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">豆瓣评分:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="rating" id="rating" placeholder="请输入评分" class="layui-input"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">图书网址:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="url" id="url" placeholder="请输入网址" class="layui-input"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">图书封面:</label>
+                <div class="layui-input-block">
+                    <input type="file" name="cover" id="cover"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="submit" value="添加" class="layui-btn"/>
+                </div>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/static/layui/layui.js"></script>
+</body>
+</html>

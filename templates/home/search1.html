@@ -1,0 +1,27 @@
+{% extends 'home/base.html' %}
+{% block main %}
+    {% if error_msg %}
+        <p>{{ error_msg }}</p>
+    {% endif %}
+    <div id="container">
+        <h2 style="font-size: 17px;margin-bottom: 15px;margin-top: -9px;letter-spacing:4px;">搜索结果如下：</h2>
+    </div>
+    {% for post in post_list %}
+
+        <div class="wp"style="padding-top: 20px;">
+            <div class=" list0">
+                <img style="height:200px;" src="/media/{{ post.cover }}" alt="通用的占位符缩略图"></div>
+            <div class="list1">
+                <h3 style="margin-left: 20px;font-size: 17px;margin-bottom: 20px">书名：{{ post.name }}</h3>
+                <div style="margin-left: 25px">
+                    <a href="/getbookinfo?id={{ post.id }}" class="layui-btn " role="button">
+                        详情
+                    </a>
+                    <label style="font-size: 15px;margin-left: 10px">评分：{{ post.rating }}</label>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="no-post" style="padding-top: 70px;margin-left:-350px;text-align: center">暂时还没有发布的文章！</div>
+    {% endfor %}
+{% endblock main %}

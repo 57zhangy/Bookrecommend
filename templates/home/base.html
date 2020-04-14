@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>图书搜索</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="/static/images/head.ico">
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/news.css" media="all"/>
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background: url("/static/images/header_middle.png");
+
+        }
+        form{
+            font-size: 15px;
+            margin: 10px;
+        }
+        .wp {
+            width: 45%;
+            padding-left: 4%;
+
+            float: left;
+        }
+
+        .list0 {
+            position: relative;
+            float: left;
+            width: 50%;
+        }
+
+        .list1 {
+            float: right;
+            width: 50%;
+            margin-top: 50px;
+
+        }
+    </style>
+    <style>
+        * {
+            -webkit-box-sizing: inherit;
+            -moz-box-sizing: inherit;
+            box-sizing: inherit;
+        }
+    </style>
+
+</head>
+<body>
+<blockquote class="layui-elem-quote news_search">
+    <form class="layui-form" role="search" method="get" id="searchform" action="/page/search">
+        {% csrf_token %}
+        <input type="search" name="q" placeholder="请输入图书名或出版社" required style="height: 40px;width: 260px">
+        <input class="layui-btn" value="搜索" type="submit" style="margin-left: 8px">
+        <a href="/bookpush?userid={{ userid }}" class="layui-btn"
+           style=" background-color:#5bc0de;font-size: 15px;">图书推荐</a>
+
+    </form>
+</blockquote>
+
+<div class="container" style="padding-top:20px;">
+    <div class="row">
+        <div class="col-md-11">
+            {% block main %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/layui/layui.js"></script>
+
+</body>
+</html>

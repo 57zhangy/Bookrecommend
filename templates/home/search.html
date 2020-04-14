@@ -1,0 +1,82 @@
+{% extends 'home/base.html' %}
+{% block main %}
+
+    <div class="row">
+        {% for book in book_list %}
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <img style="height:200px;" src="/media/{{ book.cover }}"
+                         alt="通用的占位符缩略图">
+                    <div class="caption">
+                        <label>{{ book.name | truncatechars:8 }}</label>
+
+                        <a href="/getbookinfo?id={{ book.id }}" class="btn btn-info btn-xs" role="button">
+                            详情
+                        </a>
+                        <label>评分：{{ book.rating }}</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div style="float: bottom;position:absolute;margin:0 0 2% 35%;">
+        {% if book_list.has_previous %}
+            <a href="{% url 'search' %}?book_list={{ book_list.previous_page_number }}">
+                <button type="button" class="layui-btn layui-btn-sm">
+                    <i class="layui-icon">&#xe603;</i>
+                </button>
+            </a>
+        {% endif %}
+        <button class="layui-btn layui-btn-sm">{{ book_list.number }}/{{ book_list.paginator.num_pages }}</button>
+
+        {% if book_list.has_next %}
+            <a href="{% url 'search' %}?book_list={{ book_list.next_page_number }}">
+                <button type="button" class="layui-btn layui-btn-sm">
+                    <i class="layui-icon">&#xe602;</i>
+                </button>
+            </a>
+        {% endif %}
+    </div>
+
+{% endblock main %}
+{##}
+{#{% for book in book_list %}#}
+{#        <div class="wp" style="padding-top: 60px;">#}
+{#            <div class=" list0">#}
+{#                <img style="height:200px;" src="/media/{{ book.cover }}"#}
+{#                     alt="通用的占位符缩略图">#}
+{#            </div>#}
+{#            <div class="list1">#}
+{#                <div class="caption">#}
+{#                    <label style="font-size: 17px;margin-bottom: 20px">书名：{{ book.name | truncatechars:6 }}</label>#}
+{#                    <div style="margin-left: 25px">#}
+{#                        <a href="/getbookinfo?id={{ book.id }}" class="layui-btn " role="button">#}
+{#                            详情#}
+{#                        </a>#}
+{#                        <label style="font-size: 15px;margin-left: 10px">评分：{{ book.rating }}</label>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#    <div style="float: bottom;position:absolute;margin-left:470px;margin-top: 1330px">#}
+{#        {% if book_list.has_previous %}#}
+{#            <a href="{% url 'search' %}?book_list={{ book_list.previous_page_number }}">#}
+{#                <button type="button" class="layui-btn layui-btn-sm">#}
+{#                    <i class="layui-icon">&#xe603;</i>#}
+{#                </button>#}
+{#            </a>#}
+{#        {% endif %}#}
+{#                            #先转化为p对象-->页的页面数#}
+{#        <button class="layui-btn layui-btn-sm">{{ book_list.number }}/{{ book_list.paginator.num_pages }}</button>#}
+{##}
+{#        {% if book_list.has_next %}#}
+{#            <a href="{% url 'search' %}?book_list={{ book_list.next_page_number }}">#}
+{#                <button type="button" class="layui-btn layui-btn-sm">#}
+{#                    <i class="layui-icon">&#xe602;</i>#}
+{#                </button>#}
+{#            </a>#}
+{#        {% endif %}#}
+{#    </div>#}
+

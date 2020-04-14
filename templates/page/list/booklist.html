@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>书籍列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all"/>
+    <style>
+        .news_search {
+            padding: 10px 10px;
+        }
+
+        .layui-table, .layui-table th {
+            text-align: center;
+        }
+
+        .news_list .layui-form-switch {
+            margin-top: 0;
+        }
+
+        /*分页*/
+        #page {
+            text-align: right;
+        }
+    </style>
+
+</head>
+<body class="childrenBody">
+<blockquote class="layui-elem-quote">
+    <form class="layui-form" role="search" method="get" id="searchform" action="/page/search" style="float: right;margin-right: 37%;padding-top: 5px;">
+        {% csrf_token %}
+        <input type="search" name="q" placeholder="请输入图书名或出版社" required style="height: 40px;width: 200px">
+        <input class="layui-btn" value="搜索" type="submit">
+    </form>
+    <div class="layui-inline">
+        <a href="{% url 'addpage' %}" class="layui-btn layui-btn-normal">添加书籍</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn " style="background-color:#5FB878">评分排序<i
+                class="layui-icon">&#xe619;</i></a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn audit_btn">id排序<i
+                class="layui-icon">&#xe619;</i></a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-danger">id排序<i
+                class="layui-icon">&#xe61a;</i></a>
+    </div>
+</blockquote>
+<div class="layui-form news_list">
+    <table class="layui-table">
+        <colgroup>
+            <col width="7%">
+            <col width="25%">
+            <col width="10%">
+            <col width="9%">
+            <col width="6%">
+            <col width="27%">
+            <col width="18%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th style="text-align:center;">书名</th>
+            <th>出版社</th>
+            <th>图书价格</th>
+            <th>评分</th>
+            <th>图书网址</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for book in book_list %}
+            <tr>
+                <td>{{ book.no }}</td>
+                <td>{{ book.name }}</td>
+                <td>{{ book.publish }}</td>
+                <td>{{ book.price }}</td>
+                <td>{{ book.rating }}</td>
+                <td><a target="_blank" href={{ book.url }}>{{ book.url }}</a></td>
+                <td><a href="/getbook?id={{ book.id }}" class="layui-btn layui-btn-mini"><i
+                        class="iconfont icon-edit"></i>编辑</a>
+                    <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i class="layui-icon">&#xe600;</i>
+                        收藏</a>
+                    <a href="http://127.0.0.1:8000/page/delete/{{ book.id }}"
+                       class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+data[i].newsId+'"><i
+                            class="layui-icon">&#xe640;</i> 删除</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div style="float: bottom;position:absolute;margin:0 0 2% 37%;">
+    {% if book_list.has_previous %}
+        <a href="http://127.0.0.1:8000/page/manage?book_list={{ book_list.previous_page_number }}">
+            <button type="button" class="layui-btn layui-btn-sm">
+                <i class="layui-icon">&#xe603;</i>
+            </button>
+        </a>
+    {% endif %}
+    <button class="layui-btn layui-btn-sm">{{ book_list.number }}/{{ book_list.paginator.num_pages }}</button>
+
+    {% if book_list.has_next %}
+        <a href="http://127.0.0.1:8000/page/manage?book_list={{ book_list.next_page_number }}">
+            <button type="button" class="layui-btn layui-btn-sm">
+                <i class="layui-icon">&#xe602;</i>
+            </button>
+        </a>
+    {% endif %}
+</div>
+<script type="text/javascript" src="/static/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: "js/"
+    }).use(['form', 'layer', 'jquery', 'laypage'], function () {
+        var form = layui.form(),
+            layer = parent.layer === undefined ? layui.layer : parent.layer,
+            laypage = layui.laypage,
+            $ = layui.jquery;
+
+        //通过判断文章是否全部选中来确定全选按钮是否选中
+        form.on("checkbox(choose)", function (data) {
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"])');
+            var childChecked = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"]):checked')
+            if (childChecked.length == child.length) {
+                $(data.elem).parents('table').find('thead input#allChoose').get(0).checked = true;
+            } else {
+                $(data.elem).parents('table').find('thead input#allChoose').get(0).checked = false;
+            }
+            form.render('checkbox');
+        })
+
+
+        $("body").on("click", ".news_collect", function () {  //收藏.
+            if ($(this).text().indexOf("已收藏") > 0) {
+                layer.msg("取消收藏成功！");
+                $(this).html("<i class='layui-icon'>&#xe600;</i> 收藏");
+            } else {
+                layer.msg("收藏成功！");
+                $(this).html("<i class='iconfont icon-star'></i> 已收藏");
+            }
+        })
+
+        function newsList(that) {
+            //渲染数据
+            function renderDate(data, curr) {
+                var dataHtml = '';
+                if (!that) {
+                    currData = newsData.concat().splice(curr * nums - nums, nums);
+                } else {
+                    currData = that.concat().splice(curr * nums - nums, nums);
+                }
+                if (currData.length != 0) {
+                    for (var i = 0; i < currData.length; i++) {
+                        dataHtml += '<tr>'
+                            + '<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
+                            + '<td align="left">' + currData[i].newsName + '</td>'
+                            + '<td>' + currData[i].newsAuthor + '</td>';
+                        if (currData[i].newsStatus == "待审核") {
+                            dataHtml += '<td style="color:#f00">' + currData[i].newsStatus + '</td>';
+                        } else {
+                            dataHtml += '<td>' + currData[i].newsStatus + '</td>';
+                        }
+                        dataHtml += '<td>' + currData[i].newsLook + '</td>'
+                            + '<td><input type="checkbox" name="show" lay-skin="switch" lay-text="是|否" lay-filter="isShow"' + currData[i].isShow + '></td>'
+                            + '<td>' + currData[i].newsTime + '</td>'
+                            + '<td>'
+                            + '<a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>'
+                            + '<a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i class="layui-icon">&#xe600;</i> 收藏</a>'
+                            + '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="' + data[i].newsId + '"><i class="layui-icon">&#xe640;</i> 删除</a>'
+                            + '</td>'
+                            + '</tr>';
+                    }
+                } else {
+                    dataHtml = '<tr><td colspan="8">暂无数据</td></tr>';
+                }
+                return dataHtml;
+            }
+
+        }
+    })
+
+</script>
+</body>
+</html>
